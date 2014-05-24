@@ -1,7 +1,7 @@
 # v0.1
  
  * User login
- * Userr panel
+ * User panel
  * Suport pentru incarcarea variantelor de bac
  * Rezolvarea variantelor impreuna 
  * Scratchpad la pagina de variante
