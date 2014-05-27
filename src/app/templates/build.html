@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	<form action="" name="buildForm" method="Post">
+		{{ form.hidden_tag() }}
+
+		{{ form.question }} <br>
+		 {{ form.answer_1}} {{ form.answer_1_c }} <br>
+		 {{ form.answer_2}} {{ form.answer_2_c }} <br>
+		 {{ form.answer_3}} {{ form.answer_3_c }} <br>
+		 {{ form.answer_4}} {{ form.answer_4_c }} <br>
+
+		<input type="submit" name="test" value="submit"/>
+	</form>
+	
+{% endblock %}
