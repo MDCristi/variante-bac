@@ -29,3 +29,19 @@ class QuizForm(Form):
 	answer_4_c = SelectField('raspuns_4', choices=[('true', 'adevarat'), 
 		('false', 'fals')],
 		validators = [Required()])
+
+class ChooseForm(Form):
+	category = SelectField('category', 
+		# the list is not complete
+		validators = [Required()],
+		choices = [
+			('matematica', 'Matematica'),
+			('chimie', 'Chimie')
+		])
+
+# quiz solving form(s)
+class QuestionForm(Form):
+	option_1 = BooleanField('test', default = False)
+	option_2 = BooleanField('test_2', default = False)
+	option_3 = BooleanField('test_3', default = False)
+	option_4 = BooleanField('test_4', default = False)

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+	<!-- test -->
+	<form method="post" name="questionform" action="">
+		{{ form.hidden_tag() }}
+		{{ form.option_1(value=answers_values[0]) }}
+		{{ form.option_2(value=answers_values[1]) }}
+		{{ form.option_3(value=answers_values[2]) }}
+		{{ form.option_4(value=answers_values[3]) }}
+
+		<input type="submit" value="urmatorul"/>
+	</form>
+
+
+	{{ question.text }}
+	<br>
+
+	{% for answer in answers %}
+		{{ answer.text }}
+		<br>
+	{% endfor%}
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+	<form method="POST" name="ChooseForm" action="">
+		{{ form.hidden_tag() }}
+
+		{{ form.category }}
+		<input type="submit" name="test" value="submit"/>	
+	</form>
+
+	{% for varianta in variants %}
+		<a href="{{ url_for('work', varianta = varianta.id) }}">
+			{{ varianta.description }}  
+		</a>
+		<p>
+			{{ varianta.description }}
+		</p>
+		<br>
+	{% endfor %}
+
+{% endblock %}
