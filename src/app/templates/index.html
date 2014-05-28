@@ -1,11 +1,16 @@
 <!-- extends base template -->
 {% extends "base.html" %}
 {% block content %}
-	{%  if user %}
-		{{ user.email }}
-	{% endif %}
-	{{ email}}
-	<p> nothing here, except </p>
-	{{ debug }}
+	<div class="container">
+		<div class="jumbotron">
+			<h2> Lucreaza o Varianta Acum! </h2>
+			<p> Daca esti profesor si doresti sa le pui la dispozitie material didactic elevilor tai astfel incat sa se poata pregati pentru bac, ai venit la locul potrivit. Daca esti elev si doresti sa iei bacul nu ai cum sa nu folosesti aplicatia noastra </p>
+			<center>
+				<a href="{{url_for('creeaza')}}" class="btn btn-primary btn-lg"> Creaaza o Varianta </a>
+				<a href="{{url_for('choose')}}"class="btn btn-danger btn-lg"> Lucreaza o Varianta </a>
+			</center>
+		</div>
+	
+	</div>
 {% endblock %}
 

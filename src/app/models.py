@@ -38,6 +38,7 @@ class Question(db.Model):
 	id = db.Column(db.Integer(), primary_key = True)
 	text = db.Column(db.String(500))
 	question_nr = db.Column(db.Integer())
+	question_points = db.Column(db.Integer())
 	varianta_id = db.Column(db.Integer(), db.ForeignKey('varianta.id')) 
 	answer = db.relationship('Answer', backref = 'author')
 

@@ -1,15 +1,43 @@
 {% extends 'base.html' %}
 {% block content %}
-	<form action="" name="buildForm" method="Post">
-		{{ form.hidden_tag() }}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form action="" name="buildForm" method="Post">
+							{{ form.hidden_tag() }}
 
-		{{ form.question }} <br>
-		 {{ form.answer_1}} {{ form.answer_1_c }} <br>
-		 {{ form.answer_2}} {{ form.answer_2_c }} <br>
-		 {{ form.answer_3}} {{ form.answer_3_c }} <br>
-		 {{ form.answer_4}} {{ form.answer_4_c }} <br>
+							<h3> Intebarea </h3>
+							{{ form.question(class="form-control") }} 
+							<br>
+							<h4> Cate puncte ii acorzi? </h4>
+							{{ form.question_points( size="23") }} 
+							<br>
+							
+							<h4> Varianta de raspuns 1 <h4>
+							{{ form.answer_1}} {{ form.answer_1_c }} 
+							<br>
+							<h4> Varianta de raspuns 2 <h4>
+							{{ form.answer_2}} {{ form.answer_2_c }} 
+							<br>
+							<h4> Varianta de raspuns 3 <h4>
+							{{ form.answer_3}} {{ form.answer_3_c }} 
+							<br>
+							<h4> Varianta de raspuns 4 <h4>
+							{{ form.answer_4}} {{ form.answer_4_c }} 
+							<br>
+							<br>
+							<input class="btn btn-success"type="submit" name="test" value="urmatoarea"/>
+						</form>
 
-		<input type="submit" name="test" value="submit"/>
-	</form>
-	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
 {% endblock %}

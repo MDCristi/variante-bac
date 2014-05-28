@@ -1,20 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-	<form method="POST" name="ChooseForm" action="">
-		{{ form.hidden_tag() }}
+	<div class="container">
+		<div class="col-lg-9">
+			<form method="POST" name="ChooseForm" action="">
+				{{ form.hidden_tag() }}
 
-		{{ form.category }}
-		<input type="submit" name="test" value="submit"/>	
-	</form>
+				{{ form.category(class="form-control", size="3", style="width:60%") }}
+				<br>
+				<input class="btn btn-primary" type="submit" name="test" value="submit"/>	
+			</form>
+			<br>
+			<div class="container">
+				<div class="col-lg-8">
+					{% for varianta in variants %}
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<center>
+										<h3><a href="{{ url_for('work', varianta = varianta.id) }}">
+											{{ varianta.description }}  
+										</a> </h3>
+									</center>
+									<p>&nbsp;&nbsp;&nbsp; 
+										{{ varianta.description }}
+									</p>&nbsp;&nbsp;&nbsp;
+									<a href="{{ url_for('work', varianta = varianta.id) }}" class="btn btn-default"> Lucreaza </a>
+								
+								</div>
+							</div>
+						</div>
+					{% endfor %}
 
-	{% for varianta in variants %}
-		<a href="{{ url_for('work', varianta = varianta.id) }}">
-			{{ varianta.description }}  
-		</a>
-		<p>
-			{{ varianta.description }}
-		</p>
-		<br>
-	{% endfor %}
-
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

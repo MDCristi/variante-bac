@@ -13,6 +13,7 @@ class MasterForm(Form):
 	
 class QuizForm(Form):
 	question = TextField('intrebare', validators = [Required()])
+	question_points = TextField('punct_pe_intrebare', validators = [Required()])
 	answer_1 = TextField('raspuns1', validators = [Required()])
 	answer_1_c = SelectField('raspuns_1', choices=[('true', 'adevarat'), 
 		('false', 'fals')],

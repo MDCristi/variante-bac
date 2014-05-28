@@ -1,25 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-	<form name="masterForm" action="/creeaza" method="post">
-		{{ form.hidden_tag() }}
-		<table>
-			<tr>
-				<td>
-					Descrierea variantei
-					{{ form.description }}
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Categoria Variantei
-					{{ form.category }}
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="submit" name="generate" value="Genereaza Varianta"/>
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<form name="masterForm" action="/creeaza" method="post">
+							{{ form.hidden_tag() }}
+							<table>
+								<tr>
+									<td>
+										<h3> Descrierea variantei </h3>
+										{{ form.description(class="form-control", placeholder="Descrierea variantei") }}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h3> Categoria Variantei</h3>
+										{{ form.category(class="form-control", size="3") }}
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										<br>
+										<input class="btn btn-default" type="submit" name="generate" value="Genereaza Varianta"/>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}

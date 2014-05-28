@@ -17,6 +17,13 @@ from pprint import pprint
 def before_request():
     g.user = current_user
 
+#on dev
+@app.route('/users')
+@app.route('/users/<username>')
+def users(username = 'test'):
+	pass
+
+	
 # on dev
 @app.route('/')
 @app.route('/index')
@@ -81,18 +88,19 @@ def build(qid = 1):
 	if request.method == 'POST' and form.validate_on_submit():
 		question = Question(text = str(form.question.data),
 			varianta_id = None,
-			question_nr = qid) 
+			question_nr = qid,
+			question_points = form.question_points.data) 
 
 		answer_1 = Answer(text = str(form.answer_1.data),
 			question_id = question.id,
 			correct = boolean_value(form.answer_1_c.data))
-		answer_2 = Answer(text = str(form.answer_1.data),
+		answer_2 = Answer(text = str(form.answer_2.data),
 			question_id = question.id,
 			correct = boolean_value(form.answer_2_c.data))
-		answer_3 = Answer(text = str(form.answer_1.data),
+		answer_3 = Answer(text = str(form.answer_3.data),
 			question_id = question.id,
 			correct = boolean_value(form.answer_3_c.data))
-		answer_4 = Answer(text = str(form.answer_1.data),
+		answer_4 = Answer(text = str(form.answer_4.data),
 			question_id = question.id,
 			correct = boolean_value(form.answer_4_c.data))
 
@@ -117,15 +125,19 @@ def build(qid = 1):
 			varianta_id = varianta.id).first()
 
 		answer_1.question_id = question_id.id
-		answer_2.question_id = question_id.id
-		answer_3.question_id = question_id.id
-		answer_4.question_id = question_id.id
-
 		db.session.add(answer_1)
-		db.session.add(answer_2)
-		db.session.add(answer_3)
-		db.session.add(answer_4)
+		db.session.commit()
 
+		answer_2.question_id = question_id.id
+		db.session.add(answer_2)
+		db.session.commit()
+
+		answer_3.question_id = question_id.id
+		db.session.add(answer_3)
+		db.session.commit()		
+
+		answer_4.question_id = question_id.id
+		db.session.add(answer_4)
 		db.session.commit()
 		
 		if qid == MAX_QUESTIONS:
@@ -176,9 +188,9 @@ def work(vid = 1, qid = 1):
 
 	# select all the answers related to that question
 	answers = Answer.query.filter_by(question_id = question.id).all()
-	corerct_answers = Answer.query.filter_by(correct = 1,
+	correct_answers = Answer.query.filter_by(correct = 1,
 		question_id = question.id).all()
-	corerct_a = [corerct_answers[i].text for i in range(0, len(corerct_answers))]
+	correct_a = [correct_answers[i].text for i in range(0, len(correct_answers))]
 
 	answers_values = []
 	if len(answers) != 0:
@@ -190,14 +202,17 @@ def work(vid = 1, qid = 1):
 
 	if request.method == 'POST' and form.validate_on_submit():
 		counter = 0
-		items = form.data.items()
+		# I sort this list because the values in the items list are not in the
+		# the order that I need for a succesfull validation
+		items = sorted(form.data.items())
 		checked_boxes = get_number_of_checked_items(form)
 		print checked_boxes, "\n"
-		print corerct_a, "\n"
+		print correct_a, "\n"
 		print answers_values, "\n"
+		print items, "\n"
 
 		# he checked to many boxes
-		if checked_boxes > len(answers_values):	
+		if checked_boxes > len(correct_a):	
 			# no points, reload the same page but display the flashed message
 			flash('raspuns gresit')
 			print "redirect to the same page \n"
@@ -205,18 +220,18 @@ def work(vid = 1, qid = 1):
 
 		# ia-o secvential, esti prea obosit s ate mai gandesti la algoritmi 
 		# sofisticati
-		if answers_values[0] in corerct_a and items[0][1] == True:
+		if answers_values[0] in correct_a and items[0][1] == True:
 			counter += 1
-		if answers_values[1] in corerct_a and items[1][1] == True:
+		if answers_values[1] in correct_a and items[1][1] == True:
 			counter += 1
-		if answers_values[2] in corerct_a and items[2][1] == True:
+		if answers_values[2] in correct_a and items[2][1] == True:
 			counter += 1		
-		if answers_values[3] in corerct_a and items[3][1] == True:
+		if answers_values[3] in correct_a and items[3][1] == True:
 			counter += 1
 
 		print "the value of the counter is", counter, "\n"
-		if counter == len(corerct_answers):
-			session['score'] += 1
+		if counter == len(correct_answers):
+			session['score'] += question.question_points
 			print session['score'], "\n"
 			# go to the next question
 			if not qid + 1 > MAX_QUESTIONS:
@@ -232,13 +247,6 @@ def work(vid = 1, qid = 1):
 		answers = answers,
 		answers_values = answers_values,
 		form = form) # debug
-
-
-	# % todo %
-	# initilize users score
-	# query teh database foor the desired quiz
-	# implement quiz validation functionality
-	# don't forget o build the form used for solving quizes
 
 #on dev
 @app.route('/login', methods=['GET', 'POST'])
